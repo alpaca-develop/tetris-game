@@ -40,6 +40,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   const renderCell = (cell: Cell, key: string) => (
     <div
       key={key}
+      className="tetris-cell"
       style={{
         width: '25px',
         height: '25px',
@@ -55,6 +56,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
     
     return (
       <div
+        className="tetris-board"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${BOARD_WIDTH}, 25px)`,
@@ -79,6 +81,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
       <div style={{ marginBottom: '20px' }}>
         <h3 style={{ color: '#fff', marginBottom: '10px' }}>Next:</h3>
         <div
+          className="next-piece-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: `repeat(4, 20px)`,
@@ -97,6 +100,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
               return (
                 <div
                   key={`next-${y}-${x}`}
+                  className="next-piece-cell"
                   style={{
                     width: '20px',
                     height: '20px',
@@ -113,7 +117,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   };
 
   const renderGameInfo = () => (
-    <div style={{ color: '#fff', fontSize: '18px' }}>
+    <div className="game-info" style={{ color: '#fff', fontSize: '18px' }}>
       <div style={{ marginBottom: '10px' }}>Score: {gameState.score}</div>
       <div style={{ marginBottom: '10px' }}>Level: {gameState.level}</div>
       <div style={{ marginBottom: '20px' }}>Lines: {gameState.lines}</div>
@@ -126,6 +130,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
       {!gameState.isPlaying ? (
         <button
           onClick={startGame}
+          className="control-button"
           style={{
             padding: '10px 20px',
             fontSize: '16px',
@@ -142,6 +147,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
       ) : (
         <button
           onClick={pauseGame}
+          className="control-button"
           style={{
             padding: '10px 20px',
             fontSize: '16px',
@@ -158,6 +164,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
       )}
       <button
         onClick={resetGame}
+        className="control-button"
         style={{
           padding: '10px 20px',
           fontSize: '16px',
@@ -174,7 +181,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   );
 
   const renderMobileControls = () => (
-    <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', maxWidth: '200px' }}>
+    <div className="mobile-controls" style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', maxWidth: '200px' }}>
       <button
         onTouchStart={(e) => { e.preventDefault(); movePiece('left'); }}
         onClick={() => movePiece('left')}
@@ -255,7 +262,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   );
 
   const renderInstructions = () => (
-    <div style={{ color: '#fff', fontSize: '14px', marginTop: '20px', maxWidth: '250px' }}>
+    <div className="instructions" style={{ color: '#fff', fontSize: '14px', marginTop: '20px', maxWidth: '250px' }}>
       <h4>Controls:</h4>
       <ul style={{ paddingLeft: '20px', lineHeight: '1.5' }}>
         <li>← → : Move left/right</li>
@@ -339,6 +346,7 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
 
   return (
     <div
+      className="tetris-container"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -349,16 +357,16 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
         fontFamily: 'Arial, sans-serif',
       }}
     >
-      <h1 style={{ color: '#fff', marginBottom: '20px', fontSize: '32px' }}>Tetris</h1>
+      <h1 className="tetris-title" style={{ color: '#fff', marginBottom: '20px', fontSize: '32px' }}>Tetris</h1>
       
-      <div style={{ display: 'flex', gap: '40px', alignItems: 'flex-start', position: 'relative' }}>
+      <div className="tetris-game-area" style={{ display: 'flex', gap: '40px', alignItems: 'flex-start', position: 'relative' }}>
         <div style={{ position: 'relative' }}>
           {renderBoard()}
           {gameState.gameOver && renderGameOverScreen()}
           {gameState.isPaused && gameState.isPlaying && renderPauseScreen()}
         </div>
         
-        <div>
+        <div className="tetris-sidebar">
           {renderGameInfo()}
           {renderControls()}
           {renderMobileControls()}

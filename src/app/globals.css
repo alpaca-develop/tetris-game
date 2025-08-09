@@ -24,3 +24,131 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* レスポンシブデザイン用のCSSを追加 */
+
+/* モバイル向けの基本レイアウト調整 */
+@media (max-width: 768px) {
+  /* メインコンテナ */
+  .tetris-container {
+    padding: 10px !important;
+    min-height: 100vh !important;
+  }
+  
+  /* タイトル */
+  .tetris-title {
+    font-size: 24px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* ゲーム領域のレイアウトを縦に変更 */
+  .tetris-game-area {
+    flex-direction: column !important;
+    gap: 20px !important;
+    align-items: center !important;
+  }
+  
+  /* ゲームボードのサイズを調整 */
+  .tetris-board {
+    grid-template-columns: repeat(10, 20px) !important;
+    grid-template-rows: repeat(20, 20px) !important;
+  }
+  
+  .tetris-cell {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  
+  /* 次のピース表示を小さく */
+  .next-piece-grid {
+    grid-template-columns: repeat(4, 15px) !important;
+    grid-template-rows: repeat(4, 15px) !important;
+  }
+  
+  .next-piece-cell {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  
+  /* サイドパネルの調整 */
+  .tetris-sidebar {
+    text-align: center !important;
+  }
+  
+  /* ゲーム情報の表示を横並びに */
+  .game-info {
+    display: flex !important;
+    gap: 15px !important;
+    justify-content: center !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .game-info > div {
+    font-size: 14px !important;
+  }
+  
+  /* モバイルコントロールの調整 */
+  .mobile-controls {
+    max-width: 250px !important;
+  }
+  
+  /* 操作説明を隠す（スペース節約） */
+  .instructions {
+    display: none !important;
+  }
+  
+  /* ボタンのサイズ調整 */
+  .control-button {
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* 小さなスマートフォン向け（320px以下） */
+@media (max-width: 480px) {
+  .tetris-container {
+    padding: 5px !important;
+  }
+  
+  .tetris-title {
+    font-size: 20px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* さらに小さくゲームボードを調整 */
+  .tetris-board {
+    grid-template-columns: repeat(10, 18px) !important;
+    grid-template-rows: repeat(20, 18px) !important;
+  }
+  
+  .tetris-cell {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  
+  .mobile-controls {
+    max-width: 200px !important;
+  }
+  
+  .control-button {
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* タブレット向け（769px - 1024px） */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tetris-game-area {
+    gap: 30px !important;
+  }
+  
+  .tetris-board {
+    grid-template-columns: repeat(10, 23px) !important;
+    grid-template-rows: repeat(20, 23px) !important;
+  }
+  
+  .tetris-cell {
+    width: 23px !important;
+    height: 23px !important;
+  }
+}
