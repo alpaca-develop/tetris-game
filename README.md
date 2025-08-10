@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 Tetris Game
 
-## Getting Started
+モダンなWebテクノロジーで作られたクラシックなテトリスゲームです。レスポンシブデザインでデスクトップ、タブレット、スマートフォンすべてに対応しています。
 
-First, run the development server:
+![Tetris Game](public/image3.png)
 
+## ✨ 特徴
+
+- **完全なテトリス体験**: 本格的なテトリスゲームロジック
+- **レスポンシブデザイン**: すべてのデバイスで最適化された表示
+- **タッチ操作対応**: スマートフォンでの快適なゲームプレイ
+- **キーボード操作**: 従来のPC操作にも対応
+- **リアルタイムスコア**: スコア、レベル、ライン数の追跡
+- **Next Piece表示**: 次のピースを事前に確認可能
+
+## 🕹️ 操作方法
+
+### キーボード操作
+- `←` `→` : ピースを左右に移動
+- `↓` : ピースを高速落下
+- `↑` : ピースを回転
+- `P` : ゲームをポーズ/再開
+
+### タッチ操作
+- 画面上のボタンで直感的に操作
+- `←` `→` : 左右移動
+- `↻` : 回転
+- `↓` : 高速落下
+
+## 🎯 ゲームのルール
+
+1. **ピースの配置**: 上から落ちてくるテトリミノを配置
+2. **ライン消去**: 横一列が埋まるとラインが消去され、スコア獲得
+3. **レベルアップ**: 10ライン消去毎にレベルが上がり、落下速度が増加
+4. **ゲームオーバー**: ピースが上端まで積み上がるとゲーム終了
+
+## 📱 スクリーンショット
+
+### ゲーム開始画面
+![開始画面](public/image1.png)
+
+### ゲームプレイ中
+![プレイ中](public/image2.png)
+
+### デスクトップ版
+![デスクトップ版](public/image3.png)
+
+## 🚀 技術スタック
+
+- **Next.js 15** - React フレームワーク
+- **TypeScript** - 型安全な開発
+- **Tailwind CSS 4** - モダンなスタイリング
+- **Zustand** - 軽量な状態管理
+- **React Hooks** - モダンなReact開発
+
+## 🛠️ 開発・実行
+
+### 必要条件
+- Node.js 18.0.0以上
+- npm または yarn
+
+### インストール・実行
 ```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 本番ビルド
+npm run build
+
+# 本番サーバーの起動
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 開発モード
+```bash
+npm run dev
+```
+開発サーバーが起動し、[http://localhost:3000](http://localhost:3000)でアクセス可能になります。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎮 ゲームの特徴的な実装
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 状態管理
+- Zustandを使用した効率的な状態管理
+- ゲーム状態、スコア、レベルの一元管理
 
-## Learn More
+### ゲームロジック
+- 正確な衝突判定システム
+- 効率的なライン消去アルゴリズム
+- レベル別落下速度調整
 
-To learn more about Next.js, take a look at the following resources:
+### UI/UX
+- レスポンシブデザインによる全デバイス対応
+- タッチ操作とキーボード操作の両立
+- 直感的なゲームコントロール
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 ライセンス
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+このプロジェクトはオープンソースです。
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🎮 **今すぐプレイして、高スコアを目指そう！**

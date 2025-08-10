@@ -10,7 +10,6 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   resetGame,
   movePiece,
   rotatePiece,
-  dropPiece,
 }) => {
   // ゲームボードに現在のピースを重ねて表示するための関数
   const getBoardWithCurrentPiece = (): Cell[][] => {
@@ -40,13 +39,11 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   const renderCell = (cell: Cell, key: string) => (
     <div
       key={key}
-      className="tetris-cell"
       style={{
-        width: '25px',
-        height: '25px',
-        border: '1px solid #333',
+        width: '20px',
+        height: '20px',
         backgroundColor: cell.filled ? cell.color : '#000',
-        display: 'inline-block',
+        border: '1px solid #666',
       }}
     />
   );
@@ -56,15 +53,11 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
     
     return (
       <div
-        className="tetris-board"
+        className="grid border-2 border-white bg-gray-700 p-1 mx-auto"
         style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${BOARD_WIDTH}, 25px)`,
-          gridTemplateRows: `repeat(${BOARD_HEIGHT}, 25px)`,
-          gap: '1px',
-          border: '2px solid #fff',
-          backgroundColor: '#333',
-          padding: '4px',
+          gridTemplateColumns: `repeat(${BOARD_WIDTH}, 20px)`,
+          gridTemplateRows: `repeat(${BOARD_HEIGHT}, 20px)`,
+          gap: '0px',
         }}
       >
         {displayBoard.map((row: Cell[], y: number) =>
@@ -78,18 +71,15 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
     if (!gameState.nextPiece) return null;
 
     return (
-      <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ color: '#fff', marginBottom: '10px' }}>Next:</h3>
+      <div className="mb-3">
+        <h3 className="text-white mb-2 text-xs sm:text-sm">Next:</h3>
         <div
-          className="next-piece-grid"
+          className="grid border border-white bg-gray-700 p-1 mx-auto"
           style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(4, 20px)`,
-            gridTemplateRows: `repeat(4, 20px)`,
-            gap: '1px',
-            border: '1px solid #fff',
-            backgroundColor: '#333',
-            padding: '4px',
+            gridTemplateColumns: 'repeat(4, 15px)',
+            gridTemplateRows: 'repeat(4, 15px)',
+            gap: '0px',
+            width: 'fit-content',
           }}
         >
           {Array(4).fill(null).map((_, y) =>
@@ -100,12 +90,11 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
               return (
                 <div
                   key={`next-${y}-${x}`}
-                  className="next-piece-cell"
                   style={{
-                    width: '20px',
-                    height: '20px',
-                    border: '1px solid #333',
+                    width: '15px',
+                    height: '15px',
                     backgroundColor: cell.filled ? cell.color : '#000',
+                    border: '1px solid #666',
                   }}
                 />
               );
@@ -117,63 +106,38 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   };
 
   const renderGameInfo = () => (
-    <div className="game-info" style={{ color: '#fff', fontSize: '18px' }}>
-      <div style={{ marginBottom: '10px' }}>Score: {gameState.score}</div>
-      <div style={{ marginBottom: '10px' }}>Level: {gameState.level}</div>
-      <div style={{ marginBottom: '20px' }}>Lines: {gameState.lines}</div>
+    <div className="text-white text-xs sm:text-sm">
+      <div className="flex justify-center gap-4 mb-2 sm:block sm:space-y-1">
+        <div>Score: {gameState.score}</div>
+        <div>Level: {gameState.level}</div>
+        <div>Lines: {gameState.lines}</div>
+      </div>
       {renderNextPiece()}
     </div>
   );
 
   const renderControls = () => (
-    <div style={{ marginTop: '20px' }}>
+    <div className="mt-3 flex flex-wrap justify-center gap-2">
       {!gameState.isPlaying ? (
         <button
           onClick={startGame}
-          className="control-button"
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginRight: '10px',
-          }}
+          className="control-button px-2 py-1 text-xs bg-green-500 text-white rounded"
         >
-          Start Game
+          Start
         </button>
       ) : (
         <button
           onClick={pauseGame}
-          className="control-button"
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            backgroundColor: gameState.isPaused ? '#4CAF50' : '#FF9800',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginRight: '10px',
-          }}
+          className={`control-button px-2 py-1 text-xs text-white rounded ${
+            gameState.isPaused ? 'bg-green-500' : 'bg-orange-500'
+          }`}
         >
           {gameState.isPaused ? 'Resume' : 'Pause'}
         </button>
       )}
       <button
         onClick={resetGame}
-        className="control-button"
-        style={{
-          padding: '10px 20px',
-          fontSize: '16px',
-          backgroundColor: '#f44336',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
+        className="control-button px-2 py-1 text-xs bg-red-500 text-white rounded"
       >
         Reset
       </button>
@@ -181,192 +145,102 @@ const TetrisPresentation: React.FC<TetrisHookReturn> = ({
   );
 
   const renderMobileControls = () => (
-    <div className="mobile-controls" style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', maxWidth: '200px' }}>
-      <button
-        onTouchStart={(e) => { e.preventDefault(); movePiece('left'); }}
-        onClick={() => movePiece('left')}
-        style={{
-          padding: '15px',
-          fontSize: '16px',
-          backgroundColor: '#2196F3',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        ←
-      </button>
-      <button
-        onTouchStart={(e) => { e.preventDefault(); rotatePiece(); }}
-        onClick={rotatePiece}
-        style={{
-          padding: '15px',
-          fontSize: '16px',
-          backgroundColor: '#2196F3',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        ↻
-      </button>
-      <button
-        onTouchStart={(e) => { e.preventDefault(); movePiece('right'); }}
-        onClick={() => movePiece('right')}
-        style={{
-          padding: '15px',
-          fontSize: '16px',
-          backgroundColor: '#2196F3',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        →
-      </button>
-      <button
-        onTouchStart={(e) => { e.preventDefault(); movePiece('down'); }}
-        onClick={() => movePiece('down')}
-        style={{
-          padding: '15px',
-          fontSize: '16px',
-          backgroundColor: '#2196F3',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          gridColumn: '1 / span 2',
-        }}
-      >
-        ↓
-      </button>
-      <button
-        onTouchStart={(e) => { e.preventDefault(); dropPiece(); }}
-        onClick={dropPiece}
-        style={{
-          padding: '15px',
-          fontSize: '16px',
-          backgroundColor: '#FF5722',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        Drop
-      </button>
+    <div className="mobile-controls mt-3 w-full max-w-xs mx-auto">
+      <div className="grid grid-cols-3 gap-1 mb-2">
+        <button
+          onTouchStart={(e) => { e.preventDefault(); movePiece('left'); }}
+          onClick={() => movePiece('left')}
+          className="p-2 text-sm bg-blue-500 text-white rounded active:bg-blue-600"
+        >
+          ←
+        </button>
+        <button
+          onTouchStart={(e) => { e.preventDefault(); rotatePiece(); }}
+          onClick={rotatePiece}
+          className="p-2 text-sm bg-blue-500 text-white rounded active:bg-blue-600"
+        >
+          ↻
+        </button>
+        <button
+          onTouchStart={(e) => { e.preventDefault(); movePiece('right'); }}
+          onClick={() => movePiece('right')}
+          className="p-2 text-sm bg-blue-500 text-white rounded active:bg-blue-600"
+        >
+          →
+        </button>
+      </div>
+      <div className="flex justify-center">
+        <button
+          onTouchStart={(e) => { e.preventDefault(); movePiece('down'); }}
+          onClick={() => movePiece('down')}
+          className="p-2 text-sm bg-blue-500 text-white rounded active:bg-blue-600 w-full"
+        >
+          ↓
+        </button>
+      </div>
     </div>
   );
 
   const renderInstructions = () => (
-    <div className="instructions" style={{ color: '#fff', fontSize: '14px', marginTop: '20px', maxWidth: '250px' }}>
-      <h4>Controls:</h4>
-      <ul style={{ paddingLeft: '20px', lineHeight: '1.5' }}>
-        <li>← → : Move left/right</li>
-        <li>↓ : Move down faster</li>
-        <li>↑ : Rotate piece</li>
-        <li>Space : Drop piece</li>
-        <li>P : Pause/Resume</li>
+    <div className="instructions hidden md:block text-white text-xs mt-4">
+      <h4 className="mb-1">Controls:</h4>
+      <ul className="pl-4 text-xs space-y-0.5">
+        <li>← → : Move</li>
+        <li>↓ : Fast down</li>
+        <li>↑ : Rotate</li>
+        <li>P : Pause</li>
       </ul>
     </div>
   );
 
   const renderGameOverScreen = () => (
     <div
-      style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-        color: 'white',
-        padding: '40px',
-        borderRadius: '10px',
-        textAlign: 'center',
-        zIndex: 1000,
-      }}
+      className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50"
     >
-      <h2 style={{ marginBottom: '20px', color: '#ff6b6b' }}>Game Over!</h2>
-      <p style={{ marginBottom: '10px', fontSize: '18px' }}>Final Score: {gameState.score}</p>
-      <p style={{ marginBottom: '10px' }}>Level: {gameState.level}</p>
-      <p style={{ marginBottom: '30px' }}>Lines: {gameState.lines}</p>
-      <button
-        onClick={startGame}
-        style={{
-          padding: '15px 30px',
-          fontSize: '18px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-      >
-        Play Again
-      </button>
+      <div className="bg-black bg-opacity-90 p-6 rounded-lg text-center text-white">
+        <h2 className="mb-4 text-red-400 text-lg">Game Over!</h2>
+        <p className="mb-2 text-sm">Score: {gameState.score}</p>
+        <p className="mb-2 text-sm">Level: {gameState.level}</p>
+        <p className="mb-4 text-sm">Lines: {gameState.lines}</p>
+        <button
+          onClick={startGame}
+          className="px-4 py-2 bg-green-500 text-white rounded"
+        >
+          Play Again
+        </button>
+      </div>
     </div>
   );
 
   const renderPauseScreen = () => (
     <div
-      style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        color: 'white',
-        padding: '40px',
-        borderRadius: '10px',
-        textAlign: 'center',
-        zIndex: 1000,
-      }}
+      className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
     >
-      <h2 style={{ marginBottom: '20px' }}>Game Paused</h2>
-      <p style={{ marginBottom: '30px' }}>Press P to continue or click Resume</p>
-      <button
-        onClick={pauseGame}
-        style={{
-          padding: '15px 30px',
-          fontSize: '18px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-      >
-        Resume
-      </button>
+      <div className="bg-black bg-opacity-80 p-6 rounded-lg text-center text-white">
+        <h2 className="mb-4 text-lg">Game Paused</h2>
+        <p className="mb-4 text-sm">Press P or click Resume</p>
+        <button
+          onClick={pauseGame}
+          className="px-4 py-2 bg-green-500 text-white rounded"
+        >
+          Resume
+        </button>
+      </div>
     </div>
   );
 
   return (
-    <div
-      className="tetris-container"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '20px',
-        backgroundColor: '#1a1a1a',
-        minHeight: '100vh',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
-      <h1 className="tetris-title" style={{ color: '#fff', marginBottom: '20px', fontSize: '32px' }}>Tetris</h1>
+    <div className="tetris-container flex flex-col items-center px-2 py-4 bg-gray-900 min-h-screen font-sans overflow-x-hidden">
+      <h1 className="tetris-title text-white mb-4 text-xl sm:text-2xl md:text-3xl">Tetris</h1>
       
-      <div className="tetris-game-area" style={{ display: 'flex', gap: '40px', alignItems: 'flex-start', position: 'relative' }}>
-        <div style={{ position: 'relative' }}>
+      <div className="tetris-game-area w-full mx-auto">
+        <div className="relative flex flex-col items-center">
           {renderBoard()}
           {gameState.gameOver && renderGameOverScreen()}
           {gameState.isPaused && gameState.isPlaying && renderPauseScreen()}
         </div>
         
-        <div className="tetris-sidebar">
+        <div className="w-full text-center mt-3">
           {renderGameInfo()}
           {renderControls()}
           {renderMobileControls()}

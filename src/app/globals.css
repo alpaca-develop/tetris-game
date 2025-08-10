@@ -27,11 +27,32 @@ body {
 
 /* レスポンシブデザイン用のCSSを追加 */
 
+/* 全画面サイズでモバイルライクな表示に統一 */
+.tetris-container {
+  padding: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.tetris-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tetris-game-area {
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
 /* モバイル向けの基本レイアウト調整 */
 @media (max-width: 768px) {
   /* メインコンテナ */
   .tetris-container {
-    padding: 5px !important;
+    padding: 10px !important;
     min-height: 100vh !important;
     width: 100vw !important;
     box-sizing: border-box !important;
@@ -40,44 +61,44 @@ body {
   
   /* タイトル */
   .tetris-title {
-    font-size: 20px !important;
-    margin-bottom: 10px !important;
+    font-size: 24px !important;
+    margin-bottom: 15px !important;
   }
   
   /* ゲーム領域のレイアウトを縦に変更 */
   .tetris-game-area {
     flex-direction: column !important;
-    gap: 15px !important;
+    gap: 20px !important;
     align-items: center !important;
     width: 100% !important;
   }
   
-  /* ゲームボードのサイズを調整 */
+  /* ゲームボードのサイズを調整 - より大きく */
   .tetris-board {
-    grid-template-columns: repeat(10, 16px) !important;
-    grid-template-rows: repeat(20, 16px) !important;
-    gap: 0.5px !important;
-    padding: 2px !important;
+    grid-template-columns: repeat(10, 18px) !important;
+    grid-template-rows: repeat(20, 18px) !important;
+    gap: 1px !important;
+    padding: 3px !important;
   }
   
   .tetris-cell {
-    width: 16px !important;
-    height: 16px !important;
-    border: 0.5px solid #333 !important;
+    width: 18px !important;
+    height: 18px !important;
+    border: 1px solid #333 !important;
   }
   
-  /* 次のピース表示を小さく */
+  /* 次のピース表示を調整 */
   .next-piece-grid {
-    grid-template-columns: repeat(4, 12px) !important;
-    grid-template-rows: repeat(4, 12px) !important;
-    gap: 0.5px !important;
-    padding: 2px !important;
+    grid-template-columns: repeat(4, 14px) !important;
+    grid-template-rows: repeat(4, 14px) !important;
+    gap: 1px !important;
+    padding: 3px !important;
   }
   
   .next-piece-cell {
-    width: 12px !important;
-    height: 12px !important;
-    border: 0.5px solid #333 !important;
+    width: 14px !important;
+    height: 14px !important;
+    border: 1px solid #333 !important;
   }
   
   /* サイドパネルの調整 */
@@ -122,34 +143,34 @@ body {
 /* 小さなスマートフォン向け（480px以下） */
 @media (max-width: 480px) {
   .tetris-container {
-    padding: 3px !important;
+    padding: 8px !important;
   }
   
   .tetris-title {
-    font-size: 18px !important;
-    margin-bottom: 8px !important;
+    font-size: 20px !important;
+    margin-bottom: 12px !important;
   }
   
-  /* さらに小さくゲームボードを調整 */
+  /* 小さな画面でも見やすいサイズに調整 */
   .tetris-board {
-    grid-template-columns: repeat(10, 14px) !important;
-    grid-template-rows: repeat(20, 14px) !important;
-    gap: 0.5px !important;
+    grid-template-columns: repeat(10, 16px) !important;
+    grid-template-rows: repeat(20, 16px) !important;
+    gap: 1px !important;
   }
   
   .tetris-cell {
-    width: 14px !important;
-    height: 14px !important;
+    width: 16px !important;
+    height: 16px !important;
   }
   
   .next-piece-grid {
-    grid-template-columns: repeat(4, 10px) !important;
-    grid-template-rows: repeat(4, 10px) !important;
+    grid-template-columns: repeat(4, 12px) !important;
+    grid-template-rows: repeat(4, 12px) !important;
   }
   
   .next-piece-cell {
-    width: 10px !important;
-    height: 10px !important;
+    width: 12px !important;
+    height: 12px !important;
   }
   
   .mobile-controls {
@@ -166,19 +187,24 @@ body {
   }
 }
 
-/* タブレット向け（769px - 1024px） */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .tetris-game-area {
-    gap: 30px !important;
+/* 大画面でも統一されたサイズを維持 */
+@media (min-width: 769px) {
+  .mobile-controls {
+    display: block !important;
+    max-width: 250px !important;
+    margin: 0 auto !important;
   }
   
-  .tetris-board {
-    grid-template-columns: repeat(10, 23px) !important;
-    grid-template-rows: repeat(20, 23px) !important;
+  .instructions {
+    display: block !important;
+    text-align: center !important;
+    margin-top: 20px !important;
+    font-size: 12px !important;
   }
   
-  .tetris-cell {
-    width: 23px !important;
-    height: 23px !important;
+  .control-button {
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    margin: 2px !important;
   }
 }

@@ -36,7 +36,6 @@ export interface TetrisHookReturn {
   resetGame: () => void;
   movePiece: (direction: 'left' | 'right' | 'down') => void;
   rotatePiece: () => void;
-  dropPiece: () => void;
 }
 
 export const TETROMINO_SHAPES = {

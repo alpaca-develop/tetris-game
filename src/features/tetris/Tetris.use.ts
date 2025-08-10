@@ -220,27 +220,6 @@ export const useTetris = (): TetrisHookReturn => {
     }
   }, [currentPiece, isPlaying, isPaused, board, setGameState]);
 
-  const dropPiece = useCallback(() => {
-    if (!currentPiece || !isPlaying || isPaused) return;
-
-    let newY = currentPiece.position.y;
-    while (isValidPosition(board, currentPiece, { 
-      x: currentPiece.position.x, 
-      y: newY + 1 
-    })) {
-      newY++;
-    }
-
-    setGameState({
-      currentPiece: {
-        ...currentPiece,
-        position: { ...currentPiece.position, y: newY },
-      },
-    });
-
-    // 次のフレームで固定
-    setTimeout(() => movePiece('down'), 50);
-  }, [currentPiece, isPlaying, isPaused, board, setGameState, movePiece]);
 
   const startGame = useCallback(() => {
     resetGameState();
@@ -258,14 +237,14 @@ export const useTetris = (): TetrisHookReturn => {
 
   // ゲームループ
   useEffect(() => {
-    if (!isPlaying || isPaused || gameState.gameOver) return;
+    if (!isPlaying || isPaused || gameState.gameOver || !currentPiece) return;
 
     const interval = setInterval(() => {
       movePiece('down');
     }, Math.max(50, 1000 - (level - 1) * 100));
 
     return () => clearInterval(interval);
-  }, [isPlaying, isPaused, gameState.gameOver, level, movePiece]);
+  }, [isPlaying, isPaused, gameState.gameOver, level, movePiece, currentPiece]);
 
   // キーボード入力
   useEffect(() => {
@@ -289,10 +268,6 @@ export const useTetris = (): TetrisHookReturn => {
           e.preventDefault();
           rotatePieceHandler();
           break;
-        case ' ':
-          e.preventDefault();
-          dropPiece();
-          break;
         case 'p':
         case 'P':
           pauseGame();
@@ -302,7 +277,7 @@ export const useTetris = (): TetrisHookReturn => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isPlaying, movePiece, rotatePieceHandler, dropPiece, pauseGame]);
+  }, [isPlaying, movePiece, rotatePieceHandler, pauseGame]);
 
   return {
     gameState,
@@ -311,6 +286,5 @@ export const useTetris = (): TetrisHookReturn => {
     resetGame,
     movePiece,
     rotatePiece: rotatePieceHandler,
-    dropPiece,
   };
 };
